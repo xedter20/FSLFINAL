@@ -34,7 +34,7 @@ const TabMenu = ({
     const tabs = [
         { id: "camera", label: "Camera", icon: <FaCamera /> },
         { id: "practice", label: "Practice", icon: <FaImage /> },
-        { id: "history", label: "History", icon: <FaHistory /> },
+        // { id: "history", label: "History", icon: <FaHistory /> },
     ];
 
     return (
@@ -276,7 +276,7 @@ const Detect = () => {
                 {/* <Navbar /> */}
 
                 {/* Camera Section */}
-                <div className="flex-grow bg-black w-full flex items-center justify-center pt-16  border-4 border-red-500"> {/* Added pt-16 to offset navbar height */}
+                <div className="flex-grow bg-black w-full flex items-center justify-center pt-16"> {/* Added pt-16 to offset navbar height */}
 
                     {/* Display webcam */}
                     {activeTab === "camera" && (
