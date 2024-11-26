@@ -8,7 +8,7 @@ import { login, logout } from "../../redux/actions/authaction";
 
 const Navbar = ({ notifyMsg }) => {
   const [toggle, setToggle] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.auth?.user);
 
   const { accessToken } = useSelector((state) => state.auth);
@@ -37,96 +37,77 @@ const Navbar = ({ notifyMsg }) => {
   };
 
   return (
-    <div className="signlang_navbar  gradient__bg">
-      <div className="singlang_navlinks">
-        <div className="signlang_navlinks_logo">
-          <a href="/">
-            <img className="logo" src={logo} alt="logo" />
-          </a>
-        </div>
+    <nav className="bg-gradient-to-r from-blue-500 to-blue-700 text-white fixed top-0 left-0 w-full z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <h1 className="text-xl font-bold">FSL Recognition</h1>
+          </div>
 
-        <div className="signlang_navlinks_container">
-          <p>
-            <Link to="/">Home</Link>
-          </p>
-
-          <p>
-            <Link to="/detect">Detect</Link>
-          </p>
-
-          {/* <p>
-            <Link to="/guide">Guide</Link>
-          </p> */}
-
-          {accessToken && (
-            <p>
-              <Link to="/dashboard">Dashboard</Link>
-            </p>
-          )}
-        </div>
-
-        <div className="signlang_auth-data">
-          {accessToken ? (
-            <>
-              <img src={user?.photoURL} alt="user-icon" />
-              <button type="button" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <button type="button" onClick={handleLogin}>
-              Login
+          {/* Menu Button for Mobile */}
+          <div className="flex items-center sm:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              <svg
+                className={`h-6 w-6 transition-transform ${isOpen ? "rotate-90" : ""
+                  }`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
             </button>
-          )}
+          </div>
+
+          {/* Links */}
+          {/* <div className="hidden sm:flex sm:items-center space-x-4">
+            <Link to="/">Home</Link>
+            <a href="#about" className="hover:text-blue-200">
+              About
+            </a>
+            <Link to="/detect">Detect</Link>
+            <a href="#contact" className="hover:text-blue-200">
+              Contact
+            </a>
+          </div> */}
         </div>
-      </div>
 
-      <div className="signlang__navbar-menu">
-        {toggle ? (
-          <RiCloseLine
-            color="#fff"
-            size={27}
-            onClick={() => setToggle(false)}
-          />
-        ) : (
-          <RiMenu3Line color="#fff" size={27} onClick={() => setToggle(true)} />
-        )}
-        {toggle && (
-          <div className="signlang__navbar-menu_container scale-up-center">
-            <div className="signlang__navbar-menu_container-links">
-              <p>
-                <Link to="/">Home</Link>
-              </p>
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="sm:hidden">
+            <div className="space-y-2 px-2 pt-2 pb-3">
 
-              <p>
-                <Link to="/detect">Detect</Link>
-              </p>
+              <Link to="/">
 
-              {accessToken && (
-                <p>
-                  <Link to="/dashboard">Dashboard</Link>
-                </p>
-              )}
-            </div>
+                <a
+                  href="#home"
+                  className="block text-center py-2 rounded hover:bg-blue-600"
+                >
+                  Home
+                </a></Link>
+              <Link to="/detect">
+                <a
+                  href="#about"
+                  className="block text-center py-2 rounded hover:bg-blue-600"
+                >
+                  Detect
+                </a></Link>
 
-            <div className="signlang__navbar-menu_container-links-authdata">
-              {accessToken ? (
-                <>
-                  <img src={user?.photoURL} alt="user-icon" />
-                  <button type="button" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <button type="button" onClick={handleLogin}>
-                  Login
-                </button>
-              )}
             </div>
           </div>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -1,5 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+
+# Ignore output images directory
+src/assests/FSL/
+src/assests/source_vids/
+
+
 # dependencies
 /node_modules
 /.pnp
