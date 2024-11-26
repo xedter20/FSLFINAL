@@ -276,7 +276,7 @@ const Detect = () => {
                 {/* <Navbar /> */}
 
                 {/* Camera Section */}
-                <div className="flex-grow bg-black w-full flex items-center justify-center pt-16"> {/* Added pt-16 to offset navbar height */}
+                <div className="flex-grow bg-black w-full flex items-center justify-center pt-16  border-4 border-red-500"> {/* Added pt-16 to offset navbar height */}
 
                     {/* Display webcam */}
                     {activeTab === "camera" && (
@@ -287,27 +287,28 @@ const Detect = () => {
                                 videoConstraints={{
                                     facingMode: "user", // front-facing camera
                                 }}
-                                className="signlang_webcam w-full h-full object-cover"
+                                className="w-full h-full object-cover"
+                            // className="signlang_webcam w-full h-full object-cover"
                             />
                             <canvas
                                 ref={canvasRef}
                                 className="signlang_canvas w-full h-full absolute top-0 left-0"
                             />
-                            <button
+                            {/* <button
                                 className="mt-4 p-2 bg-blue-500 text-white rounded"
                                 onClick={enableCam}
                             >
                                 {webcamRunning ? "Stop Camera" : "Start Camera"}
                             </button>
-                            <div className="mt-4 text-white">
-                                <p>Output: {gestureOutput}</p>
+                            <div className="mt-4 text-white font-bold">
+                                <p>Result: {gestureOutput}</p>
                                 <div className="w-full bg-gray-700 h-2 mt-2">
                                     <div
                                         className="bg-green-500 h-2"
                                         style={{ width: `${progress}%` }}
                                     ></div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     )}
 
