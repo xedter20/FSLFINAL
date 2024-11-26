@@ -5,7 +5,6 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +16,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-// Register the service worker
-serviceWorkerRegistration.register();
