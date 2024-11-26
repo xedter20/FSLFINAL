@@ -294,7 +294,7 @@ const Detect = () => {
                                 ref={canvasRef}
                                 className="signlang_canvas w-full h-full absolute top-0 left-0"
                             />
-                            {/* <button
+                            <button
                                 className="mt-4 p-2 bg-blue-500 text-white rounded"
                                 onClick={enableCam}
                             >
@@ -308,7 +308,7 @@ const Detect = () => {
                                         style={{ width: `${progress}%` }}
                                     ></div>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     )}
 
