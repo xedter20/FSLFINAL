@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Working.css"
-import WorkingImg from "../../assests/Working.png";
+// import WorkingImg from "../../assests/Working.png";
 
 const Working = () => {
   return (

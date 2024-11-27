@@ -1,0 +1,552 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "calendar_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 2,
+            "name": "color_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 3,
+            "name": "days_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 4,
+            "name": "drink_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 5,
+            "name": "family_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 6,
+            "name": "food_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 7,
+            "name": "greetings_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 8,
+            "name": "number_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 9,
+            "name": "relationships_FSL",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 10,
+            "name": "source_vids",
+            "bgColor": "#98C1D9"
+        },
+        {
+            "id": 11,
+            "name": "survival_FSL",
+            "bgColor": "#98C1D9"
+        }
+    ],
+    "subCategories": {
+        "calendar_FSL": [
+            {
+                "id": 1,
+                "title": "April",
+                "videoUrl": "https://www.youtube.com/embed/April"
+            },
+            {
+                "id": 2,
+                "title": "August",
+                "videoUrl": "https://www.youtube.com/embed/August"
+            },
+            {
+                "id": 3,
+                "title": "December",
+                "videoUrl": "https://www.youtube.com/embed/December"
+            },
+            {
+                "id": 4,
+                "title": "February",
+                "videoUrl": "https://www.youtube.com/embed/February"
+            },
+            {
+                "id": 5,
+                "title": "January",
+                "videoUrl": "https://www.youtube.com/embed/January"
+            },
+            {
+                "id": 6,
+                "title": "July",
+                "videoUrl": "https://www.youtube.com/embed/July"
+            },
+            {
+                "id": 7,
+                "title": "June",
+                "videoUrl": "https://www.youtube.com/embed/June"
+            },
+            {
+                "id": 8,
+                "title": "March",
+                "videoUrl": "https://www.youtube.com/embed/March"
+            },
+            {
+                "id": 9,
+                "title": "May",
+                "videoUrl": "https://www.youtube.com/embed/May"
+            },
+            {
+                "id": 10,
+                "title": "November",
+                "videoUrl": "https://www.youtube.com/embed/November"
+            },
+            {
+                "id": 11,
+                "title": "October",
+                "videoUrl": "https://www.youtube.com/embed/October"
+            },
+            {
+                "id": 12,
+                "title": "September",
+                "videoUrl": "https://www.youtube.com/embed/September"
+            }
+        ],
+        "color_FSL": [
+            {
+                "id": 1,
+                "title": "Black",
+                "videoUrl": "https://www.youtube.com/embed/Black"
+            },
+            {
+                "id": 2,
+                "title": "Blue",
+                "videoUrl": "https://www.youtube.com/embed/Blue"
+            },
+            {
+                "id": 3,
+                "title": "Brown",
+                "videoUrl": "https://www.youtube.com/embed/Brown"
+            },
+            {
+                "id": 4,
+                "title": "Dark",
+                "videoUrl": "https://www.youtube.com/embed/Dark"
+            },
+            {
+                "id": 5,
+                "title": "Gray",
+                "videoUrl": "https://www.youtube.com/embed/Gray"
+            },
+            {
+                "id": 6,
+                "title": "Green",
+                "videoUrl": "https://www.youtube.com/embed/Green"
+            },
+            {
+                "id": 7,
+                "title": "Light",
+                "videoUrl": "https://www.youtube.com/embed/Light"
+            },
+            {
+                "id": 8,
+                "title": "Orange",
+                "videoUrl": "https://www.youtube.com/embed/Orange"
+            },
+            {
+                "id": 9,
+                "title": "output_images",
+                "videoUrl": "https://www.youtube.com/embed/output_images"
+            },
+            {
+                "id": 10,
+                "title": "Pink",
+                "videoUrl": "https://www.youtube.com/embed/Pink"
+            },
+            {
+                "id": 11,
+                "title": "Red",
+                "videoUrl": "https://www.youtube.com/embed/Red"
+            },
+            {
+                "id": 12,
+                "title": "Violet",
+                "videoUrl": "https://www.youtube.com/embed/Violet"
+            },
+            {
+                "id": 13,
+                "title": "White",
+                "videoUrl": "https://www.youtube.com/embed/White"
+            },
+            {
+                "id": 14,
+                "title": "Yellow",
+                "videoUrl": "https://www.youtube.com/embed/Yellow"
+            }
+        ],
+        "days_FSL": [
+            {
+                "id": 1,
+                "title": "Saturday",
+                "videoUrl": "https://www.youtube.com/embed/Saturday"
+            },
+            {
+                "id": 2,
+                "title": "Thursday",
+                "videoUrl": "https://www.youtube.com/embed/Thursday"
+            },
+            {
+                "id": 3,
+                "title": "Today",
+                "videoUrl": "https://www.youtube.com/embed/Today"
+            },
+            {
+                "id": 4,
+                "title": "Yesterday",
+                "videoUrl": "https://www.youtube.com/embed/Yesterday"
+            }
+        ],
+        "drink_FSL": [
+            {
+                "id": 1,
+                "title": "Beer",
+                "videoUrl": "https://www.youtube.com/embed/Beer"
+            },
+            {
+                "id": 2,
+                "title": "Coffee",
+                "videoUrl": "https://www.youtube.com/embed/Coffee"
+            },
+            {
+                "id": 3,
+                "title": "Cold",
+                "videoUrl": "https://www.youtube.com/embed/Cold"
+            },
+            {
+                "id": 4,
+                "title": "Hot",
+                "videoUrl": "https://www.youtube.com/embed/Hot"
+            },
+            {
+                "id": 5,
+                "title": "Juice",
+                "videoUrl": "https://www.youtube.com/embed/Juice"
+            },
+            {
+                "id": 6,
+                "title": "No Sugar",
+                "videoUrl": "https://www.youtube.com/embed/No Sugar"
+            },
+            {
+                "id": 7,
+                "title": "Sugar",
+                "videoUrl": "https://www.youtube.com/embed/Sugar"
+            },
+            {
+                "id": 8,
+                "title": "Tea",
+                "videoUrl": "https://www.youtube.com/embed/Tea"
+            },
+            {
+                "id": 9,
+                "title": "Wine",
+                "videoUrl": "https://www.youtube.com/embed/Wine"
+            }
+        ],
+        "family_FSL": [
+            {
+                "id": 1,
+                "title": "Auntie",
+                "videoUrl": "https://www.youtube.com/embed/Auntie"
+            },
+            {
+                "id": 2,
+                "title": "Cousin",
+                "videoUrl": "https://www.youtube.com/embed/Cousin"
+            },
+            {
+                "id": 3,
+                "title": "Daughter",
+                "videoUrl": "https://www.youtube.com/embed/Daughter"
+            },
+            {
+                "id": 4,
+                "title": "Father",
+                "videoUrl": "https://www.youtube.com/embed/Father"
+            },
+            {
+                "id": 5,
+                "title": "Grandfather",
+                "videoUrl": "https://www.youtube.com/embed/Grandfather"
+            },
+            {
+                "id": 6,
+                "title": "Grandmother",
+                "videoUrl": "https://www.youtube.com/embed/Grandmother"
+            },
+            {
+                "id": 7,
+                "title": "Mother",
+                "videoUrl": "https://www.youtube.com/embed/Mother"
+            },
+            {
+                "id": 8,
+                "title": "Parents",
+                "videoUrl": "https://www.youtube.com/embed/Parents"
+            },
+            {
+                "id": 9,
+                "title": "Son",
+                "videoUrl": "https://www.youtube.com/embed/Son"
+            },
+            {
+                "id": 10,
+                "title": "Uncle",
+                "videoUrl": "https://www.youtube.com/embed/Uncle"
+            }
+        ],
+        "food_FSL": [
+            {
+                "id": 1,
+                "title": "Bread",
+                "videoUrl": "https://www.youtube.com/embed/Bread"
+            },
+            {
+                "id": 2,
+                "title": "Crab",
+                "videoUrl": "https://www.youtube.com/embed/Crab"
+            },
+            {
+                "id": 3,
+                "title": "Egg",
+                "videoUrl": "https://www.youtube.com/embed/Egg"
+            },
+            {
+                "id": 4,
+                "title": "Fish",
+                "videoUrl": "https://www.youtube.com/embed/Fish"
+            },
+            {
+                "id": 5,
+                "title": "Longanisa",
+                "videoUrl": "https://www.youtube.com/embed/Longanisa"
+            },
+            {
+                "id": 6,
+                "title": "Meat",
+                "videoUrl": "https://www.youtube.com/embed/Meat"
+            },
+            {
+                "id": 7,
+                "title": "Rice",
+                "videoUrl": "https://www.youtube.com/embed/Rice"
+            }
+        ],
+        "greetings_FSL": [
+            {
+                "id": 1,
+                "title": "Good Afternoon",
+                "videoUrl": "https://www.youtube.com/embed/Good Afternoon"
+            },
+            {
+                "id": 2,
+                "title": "Good Evening",
+                "videoUrl": "https://www.youtube.com/embed/Good Evening"
+            },
+            {
+                "id": 3,
+                "title": "Good Morning",
+                "videoUrl": "https://www.youtube.com/embed/Good Morning"
+            },
+            {
+                "id": 4,
+                "title": "Hello",
+                "videoUrl": "https://www.youtube.com/embed/Hello"
+            },
+            {
+                "id": 5,
+                "title": "Howo are you",
+                "videoUrl": "https://www.youtube.com/embed/Howo are you"
+            },
+            {
+                "id": 6,
+                "title": "I_m fine",
+                "videoUrl": "https://www.youtube.com/embed/I_m fine"
+            },
+            {
+                "id": 7,
+                "title": "Nice to meet you",
+                "videoUrl": "https://www.youtube.com/embed/Nice to meet you"
+            },
+            {
+                "id": 8,
+                "title": "See you tomorrow",
+                "videoUrl": "https://www.youtube.com/embed/See you tomorrow"
+            },
+            {
+                "id": 9,
+                "title": "Thank you",
+                "videoUrl": "https://www.youtube.com/embed/Thank you"
+            },
+            {
+                "id": 10,
+                "title": "You_re welcome",
+                "videoUrl": "https://www.youtube.com/embed/You_re welcome"
+            }
+        ],
+        "number_FSL": [
+            {
+                "id": 1,
+                "title": "1",
+                "videoUrl": "https://www.youtube.com/embed/1"
+            },
+            {
+                "id": 2,
+                "title": "10",
+                "videoUrl": "https://www.youtube.com/embed/10"
+            },
+            {
+                "id": 3,
+                "title": "2",
+                "videoUrl": "https://www.youtube.com/embed/2"
+            },
+            {
+                "id": 4,
+                "title": "3",
+                "videoUrl": "https://www.youtube.com/embed/3"
+            },
+            {
+                "id": 5,
+                "title": "4",
+                "videoUrl": "https://www.youtube.com/embed/4"
+            },
+            {
+                "id": 6,
+                "title": "5",
+                "videoUrl": "https://www.youtube.com/embed/5"
+            },
+            {
+                "id": 7,
+                "title": "6",
+                "videoUrl": "https://www.youtube.com/embed/6"
+            },
+            {
+                "id": 8,
+                "title": "7",
+                "videoUrl": "https://www.youtube.com/embed/7"
+            },
+            {
+                "id": 9,
+                "title": "8",
+                "videoUrl": "https://www.youtube.com/embed/8"
+            },
+            {
+                "id": 10,
+                "title": "9",
+                "videoUrl": "https://www.youtube.com/embed/9"
+            },
+            {
+                "id": 11,
+                "title": "output_images",
+                "videoUrl": "https://www.youtube.com/embed/output_images"
+            }
+        ],
+        "relationships_FSL": [
+            {
+                "id": 1,
+                "title": "Blind",
+                "videoUrl": "https://www.youtube.com/embed/Blind"
+            },
+            {
+                "id": 2,
+                "title": "Boy",
+                "videoUrl": "https://www.youtube.com/embed/Boy"
+            },
+            {
+                "id": 3,
+                "title": "Deaf",
+                "videoUrl": "https://www.youtube.com/embed/Deaf"
+            },
+            {
+                "id": 4,
+                "title": "Deaf Blind",
+                "videoUrl": "https://www.youtube.com/embed/Deaf Blind"
+            },
+            {
+                "id": 5,
+                "title": "Girl",
+                "videoUrl": "https://www.youtube.com/embed/Girl"
+            },
+            {
+                "id": 6,
+                "title": "Hard of Hearing",
+                "videoUrl": "https://www.youtube.com/embed/Hard of Hearing"
+            },
+            {
+                "id": 7,
+                "title": "Married",
+                "videoUrl": "https://www.youtube.com/embed/Married"
+            },
+            {
+                "id": 8,
+                "title": "Woman",
+                "videoUrl": "https://www.youtube.com/embed/Woman"
+            }
+        ],
+        "source_vids": [],
+        "survival_FSL": [
+            {
+                "id": 1,
+                "title": "Correct",
+                "videoUrl": "https://www.youtube.com/embed/Correct"
+            },
+            {
+                "id": 2,
+                "title": "Don_t know",
+                "videoUrl": "https://www.youtube.com/embed/Don_t know"
+            },
+            {
+                "id": 3,
+                "title": "Don_t understand",
+                "videoUrl": "https://www.youtube.com/embed/Don_t understand"
+            },
+            {
+                "id": 4,
+                "title": "Fast",
+                "videoUrl": "https://www.youtube.com/embed/Fast"
+            },
+            {
+                "id": 5,
+                "title": "No",
+                "videoUrl": "https://www.youtube.com/embed/No"
+            },
+            {
+                "id": 6,
+                "title": "Slow",
+                "videoUrl": "https://www.youtube.com/embed/Slow"
+            },
+            {
+                "id": 7,
+                "title": "Understand",
+                "videoUrl": "https://www.youtube.com/embed/Understand"
+            },
+            {
+                "id": 8,
+                "title": "Wrong",
+                "videoUrl": "https://www.youtube.com/embed/Wrong"
+            },
+            {
+                "id": 9,
+                "title": "Yes",
+                "videoUrl": "https://www.youtube.com/embed/Yes"
+            }
+        ]
+    }
+}

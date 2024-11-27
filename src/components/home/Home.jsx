@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSignData } from "../../redux/actions/signdataaction";
 import ProgressBar from "./../Detect/ProgressBar/ProgressBar";
 
-import DisplayImg from "../../assests/displayGif.gif";
-import { FaCamera, FaImage, FaHistory, FaInfoCircle } from "react-icons/fa";
+// import DisplayImg from "../../assests/displayGif.gif";
+import { FaCamera, FaImage, FaHistory, FaInfoCircle, FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 import ReactPlayer from 'react-player';
 
@@ -447,7 +447,7 @@ const CategoryCard = ({ category, setSelectedCategory }) => {
         >
             <div className="flex items-center space-x-3">
                 <FontAwesomeIcon icon={category.icon} size="1x" color={category.borderLeftColor} />
-                <h3 className="text-sm font-semibold">{category.name}</h3>
+                <h3 className="text-sm font-bold first-letter:uppercase">{category.name}</h3>
             </div>
         </div>
     );
@@ -460,59 +460,98 @@ const CategoryCard = ({ category, setSelectedCategory }) => {
 
 const CategoryComponent = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+    const [activeSubCategory, setActiveSubCategory] = useState(null);
 
+    console.log({ selectedCategory });
 
-    console.log({ selectedCategory })
+    const toggleAccordion = (subCategoryId) => {
+
+        console.log({ subCategoryId })
+        if (activeSubCategory === subCategoryId) {
+            setActiveSubCategory(null); // Close the accordion if already active
+        } else {
+            setActiveSubCategory(subCategoryId); // Open the clicked accordion
+        }
+    };
+
     return (
-        <div className="space-y-4 p-8">
+        <div className="space-y-4 p-3">
             {/* Banner Section */}
             <h1 className="text-3xl font-bold text-muted">Welcome to Our Tutorial Platform</h1>
-            {/* <div className="bg-gradient-to-r from-sky-400 to-sky-600 text-white text-center p-6 rounded-lg">
-                <h1 className="text-3xl font-bold">Welcome to Our Tutorial Platform</h1>
-             
-            </div> */}
-            <div className="grid grid-cols-2 gap-6">
-                {categories.map(category => (
-                    <CategoryCard key={category.id} category={category} setSelectedCategory={setSelectedCategory} />
-                ))}
-            </div>
 
+            {/* Category Cards Section - Only show if no category is selected */}
+            {!selectedCategory && (
+                <div className="grid grid-cols-2 gap-6">
+                    {categories.map((category) => (
+                        <CategoryCard
+                            key={category.id}
+                            category={category}
+                            setSelectedCategory={setSelectedCategory}
+                        />
+                    ))}
+                </div>
+            )}
 
+            {/* Show tutorials for selected category */}
             {selectedCategory && (
-                <div>
-                    <h2 className="text-2xl mt-8">Tutorials for {selectedCategory}</h2>
-                    <div className="space-y-4 mt-4">
-                        {subCategories[selectedCategory]?.map(subCategory => (
+                <div className="bg-white rounded-lg shadow-xl p-4 space-y-6">
+                    <button
+                        onClick={() => setSelectedCategory(null)}
+                        className="text-sm text-blue-500 hover:text-blue-700 transition-all mb-4 inline-block"
+                    >
+                        &larr; Back to Categories
+                    </button>
+                    <h2 className="text-2xl font-bold text-gray-700">Video Tutorials for {selectedCategory}</h2>
+                    <div className="space-y-6 mt-6">
+                        {subCategories[selectedCategory]?.map((subCategory) => (
                             <div
                                 key={subCategory.id}
-                                className="p-4 rounded-lg shadow-md bg-white cursor-pointer"
-                                onClick={() => setSelectedSubCategory(subCategory)}
+                                className="p-6 rounded-xl shadow-lg bg-gradient-to-r from-blue-100 to-blue-200 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
                             >
-                                <h3 className="text-lg">{subCategory.title}</h3>
+                                <div
+                                    className="flex items-center justify-between"
+                                    onClick={() => toggleAccordion(subCategory.id)}
+                                >
+                                    <h3 className="text-2xl font-medium text-gray-800">
+                                        {subCategory.title}
+                                    </h3>
+
+                                    {/* Accordion Icon from react-icons */}
+                                    {activeSubCategory === subCategory.id ? (
+                                        <FaChevronUp className="text-gray-600" />
+                                    ) : (
+                                        <FaChevronDown className="text-gray-600" />
+                                    )}
+                                </div>
+
+                                <p className="text-gray-600 mt-2">{subCategory.description}</p>
+
+                                {/* Accordion Content (Video) */}
+                                {activeSubCategory === subCategory.id && (
+                                    <div className="mt-4">
+                                        <div className="relative w-full pt-[56.25%]"> {/* 16:9 Aspect Ratio */}
+                                            <iframe
+                                                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
+                                                src={subCategory.videoUrl}
+                                                title={subCategory.title}
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
             )}
 
-            {selectedSubCategory && (
-                <div className="mt-8">
-                    <h3 className="text-xl">Now Viewing: {selectedSubCategory.title}</h3>
-                    <iframe
-                        width="100%"
-                        height="500"
-                        src={selectedSubCategory.videoUrl}
-                        title={selectedSubCategory.title}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
-                </div>
-            )}
+
         </div>
     );
 };
+
 
 const TabMenu = ({
     activeTab,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import logo from "../../assests/logo2.png";
+import logo from "../../assests/logo.png";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../../redux/actions/authaction";
@@ -37,12 +37,19 @@ const Navbar = ({ notifyMsg }) => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-blue-500 to-blue-700 text-white fixed top-0 left-0 w-full z-10">
+    <nav className="bg-gradient-to-r from-gray-100 to-orange-700 text-white fixed top-0 left-0 w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-xl font-bold">FSL Recognition</h1>
+            <div className="h-12 w-12 rounded-full flex items-center justify-center mr-3">
+              <img
+                src={logo}
+                alt="FSL Recognition Logo"
+                className="h-10 w-20 rounded-full object-cover"
+              />
+            </div>
+            {/* <h1 className="text-xl font-bold">FSL Recognition</h1> */}
           </div>
 
           {/* Menu Button for Mobile */}

@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSignData, getTopUsers } from "../../redux/actions/signdataaction";
 import ChartComp from "./Chart/ChartComp";
 
-import GoldTrophy from "../../assests/gold.png";
-import SilverTrophy from "../../assests/silver.png";
-import BronzeTrophy from "../../assests/bronze.png";
+
 import NoData from "../../assests/No-data.svg";
 
 import { quote } from "../../data/quotes";
@@ -16,10 +14,10 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
- 
+
   const navigate = useNavigate();
 
-  const { loading: authLoader ,accessToken } = useSelector((state) => state.auth);
+  const { loading: authLoader, accessToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!authLoader && !accessToken) {
@@ -27,7 +25,7 @@ const Dashboard = () => {
     }
     dispatch(getSignData());
     dispatch(getTopUsers());
-  }, [accessToken, authLoader, navigate,dispatch]);
+  }, [accessToken, authLoader, navigate, dispatch]);
 
   useEffect(() => {
     dispatch(getSignData());
@@ -75,7 +73,7 @@ const Dashboard = () => {
                     <div className="signlang_tank-row" key={index * 786}>
                       <h2 className="gradient__text">{user.rank}</h2>
                       <h3>{user.username}</h3>
-                      <img
+                      {/* <img
                         src={
                           user.rank === 1
                             ? GoldTrophy
@@ -86,7 +84,7 @@ const Dashboard = () => {
                             : ""
                         }
                         alt="trophy"
-                      />
+                      /> */}
                     </div>
                   ))}
                 </div>

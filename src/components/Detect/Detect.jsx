@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSignData } from "../../redux/actions/signdataaction";
 import ProgressBar from "./ProgressBar/ProgressBar";
 
-import DisplayImg from "../../assests/displayGif.gif";
+
 
 let startTime = "";
 
@@ -272,7 +272,7 @@ const Detect = () => {
             <div className="signlang_detection_notLoggedIn">
 
               <h1 className="gradient__text">Please Login !</h1>
-              <img src={DisplayImg} alt="diplay-img" />
+              {/* <img src={DisplayImg} alt="diplay-img" /> */}
               <p>
                 We Save Your Detection Data to show your progress and learning in dashboard, So please Login to Test this Detection Feature.
               </p>
