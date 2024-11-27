@@ -17,7 +17,7 @@ import { addSignData } from "../../redux/actions/signdataaction";
 import ProgressBar from "./../Detect/ProgressBar/ProgressBar";
 
 // import DisplayImg from "../../assests/displayGif.gif";
-import { FaCamera, FaImage, FaHistory, FaInfoCircle, FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { FaCamera, FaImage, FaHistory, FaInfoCircle, FaChevronUp, FaChevronDown, FaPause, FaPlay } from "react-icons/fa";
 
 import ReactPlayer from 'react-player';
 
@@ -468,7 +468,7 @@ const CategoryComponent = () => {
     return (
         <div className="space-y-4 p-3">
             {/* Banner Section */}
-            <h1 className="text-3xl font-bold text-muted">Welcome to Our Tutorial Platform</h1>
+            {!selectedCategory && <h1 className="text-3xl font-bold text-muted">Welcome to SignSwift</h1>}
 
             {/* Category Cards Section - Only show if no category is selected */}
             {!selectedCategory && (
@@ -497,7 +497,7 @@ const CategoryComponent = () => {
                         {subCategories[selectedCategory]?.map((subCategory) => (
                             <div
                                 key={subCategory.id}
-                                className="p-3 rounded-xl shadow-lg bg-gradient-to-r from-gray-100 to-orange-200 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
+                                className="p-3 rounded-xl shadow-lg bg-gradient-to-r from-gray-100 to-orange-100 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
                             >
                                 <div
                                     className="flex items-center justify-between"
@@ -556,19 +556,19 @@ const TabMenu = ({
 }) => {
     const tabs = [
         { id: "camera", label: "Camera", icon: <FaCamera /> },
-        { id: "practice", label: "About", icon: <FaInfoCircle /> },
+        { id: "practice", label: "Tutorials", icon: <FaInfoCircle /> },
         // { id: "history", label: "History", icon: <FaHistory /> },
     ];
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex justify-around bg-gray-800 text-white py-3 rounded-t-lg shadow-md">
+        <div className="flex flex-col h-full bg-gradient-to-r from-orange-100 to-orange-100">
+            <div className="flex justify-around bg-gradient-to-r from-orange-100 to-orange-200 text-white py-3 rounded-t-lg">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex flex-col items-center gap-1 transition-all duration-300 ${activeTab === tab.id
-                            ? "text-blue-400 border-b-2 border-blue-400"
+                            ? "text-orange-700 border-b-2 border-orange-400"
                             : "text-gray-400 hover:text-blue-400"
                             }`}
                     >
@@ -598,7 +598,10 @@ const Detect = () => {
 
     const user = useSelector((state) => state.auth?.user);
 
-    const { accessToken } = useSelector((state) => state.auth);
+    const accessToken = 'ya29.a0AeDClZAL-1fYFx9EruhQfYBEnEqwXAV8MrLCAsZ3-1T…wIaCgYKAa8SARMSFQHGX2MiX84f8rwR8o3PRiXj9vOo5g0170';
+    // || useSelector((state) => state.auth);
+
+    console.log({ accessToken })
 
     const dispatch = useDispatch();
 
@@ -790,17 +793,19 @@ const Detect = () => {
         loadGestureRecognizer();
     }, [runningMode]);
 
+
+    console.log({ accessToken })
     return (
         accessToken ? <>
 
-            <div className="flex flex-col h-screen bg-gray-900">
+            <div className="flex flex-col h-screen ">
                 {/* Navbar */}
                 {/* Uncomment the line below if the Navbar is fixed */}
                 {/* <Navbar /> */}
 
                 {/* Camera Section */}
 
-                <div className={`flex-grow w-full flex items-center justify-center pt-16 ${activeTab === "camera" ? 'bg-gray-700' : 'bg-white'}`}>{/* Added pt-16 to offset navbar height */}
+                <div className={`flex-grow w-full flex items-center justify-center pt-16 ${activeTab === "camera" ? 'bg-gray-100' : 'bg-white'}`}>{/* Added pt-16 to offset navbar height */}
 
                     {/* Display webcam */}
                     {activeTab === "camera" && (
@@ -819,19 +824,25 @@ const Detect = () => {
                                 className="signlang_canvas w-full h-full absolute top-0 left-0"
                             />
                             <button
-                                className="mt-4 p-2 bg-blue-500 text-white rounded"
+
+                                className="border-2 border-gray-400 text-white rounded-full font-bold w-20 h-20 absolute 
+                                left-1/2 top-[85%] transform -translate-x-1/2 -translate-y-1/2 bg-transparent hover:bg-gray-400 flex items-center justify-center"
                                 onClick={enableCam}
                             >
-                                {webcamRunning ? "Stop Camera" : "Start Camera"}
+                                {webcamRunning ? (
+                                    <FaPause className="text-xl" /> // Pause icon
+                                ) : (
+                                    <FaPlay className="text-xl" /> // Play icon
+                                )}
                             </button>
-                            <div className="mt-4 text-white font-bold">
+                            <div className="mt-4  font-bold">
                                 <p>Result: {gestureOutput}</p>
-                                <div className="w-full bg-gray-700 h-2 mt-2">
+                                {/* <div className="w-full bg-gray-700 h-2 mt-2">
                                     <div
                                         className="bg-green-500 h-2"
                                         style={{ width: `${progress}%` }}
                                     ></div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     )}
@@ -842,7 +853,7 @@ const Detect = () => {
                 </div>
 
                 {/* Tab Menu */}
-                <div className="bg-gray-800 text-white py-3 shadow-md">
+                <div className="bg-gradient-to-r from-gray-100 to-gray-100 text-white py-3 shadow-md">
                     <TabMenu
                         activeTab={activeTab}
                         setActiveTab={setActiveTab}
