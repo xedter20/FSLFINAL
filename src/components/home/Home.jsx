@@ -585,8 +585,6 @@ const TabMenu = ({
 
 const Detect = () => {
     const webcamRef = useRef(null);
-
-    const [isPortrait, setIsPortrait] = useState(window.innerHeight > window.innerWidth);
     const canvasRef = useRef(null);
     const [webcamRunning, setWebcamRunning] = useState(false);
     const [gestureOutput, setGestureOutput] = useState("");
@@ -610,16 +608,6 @@ const Detect = () => {
     const [currentImage, setCurrentImage] = useState(null);
     const [activeTab, setActiveTab] = useState("camera");
 
-
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsPortrait(window.innerHeight > window.innerWidth);
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     useEffect(() => {
         let intervalId;
@@ -825,17 +813,10 @@ const Detect = () => {
                             <Webcam
                                 audio={false}
                                 ref={webcamRef}
-                                // videoConstraints={{
-                                //     facingMode: "user", // front-facing camera
-                                // }}
-
                                 videoConstraints={{
                                     facingMode: "user", // front-facing camera
-                                    width: isPortrait ? 720 : 1280, // Adjust width based on orientation
-                                    height: isPortrait ? 1280 : 720, // Adjust height based on orientation
                                 }}
-                                // className="w-full h-full object-cover"
-                                className={`${window.innerHeight > window.innerWidth ? "w-full h-auto" : "h-full w-auto"} object-cover`}
+                                className="w-full h-full object-cover"
                             // className="signlang_webcam w-full h-full object-cover"
                             />
                             <canvas
