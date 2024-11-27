@@ -86,17 +86,17 @@ const categories = [
     {
         id: 9,
         name: 'relationships',
-        bgColor: '#9C27B0',
-        icon: faHeart,
-        borderLeftColor: '#7B1FA2'
-    },
-    {
-        id: 10,
-        name: 'source_vids',
         bgColor: '#90CAF9',
-        icon: faVideo,
+        icon: faHeart,
         borderLeftColor: '#42A5F5'
     },
+    // {
+    //     id: 10,
+    //     name: 'source_vids',
+    //     bgColor: '#90CAF9',
+    //     icon: faVideo,
+    //     borderLeftColor: '#42A5F5'
+    // },
     {
         id: 11,
         name: 'survival',
