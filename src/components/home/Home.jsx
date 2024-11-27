@@ -19,48 +19,471 @@ import ProgressBar from "./../Detect/ProgressBar/ProgressBar";
 import DisplayImg from "../../assests/displayGif.gif";
 import { FaCamera, FaImage, FaHistory, FaInfoCircle } from "react-icons/fa";
 
-import ReactPlayer from 'react-player'; // If using react-player for video
+import ReactPlayer from 'react-player';
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar, faPalette, faCalendarDay, faCocktail, faUsers, faUtensils, faHandshake, faHashtag, faHeart, faVideo, faSurvivalKit } from '@fortawesome/free-solid-svg-icons'; // If using react-player for video
 let startTime = "";
 
 const categories = [
-    { id: 1, name: 'Colors', bgColor: '#98C1D9' },
-    { id: 2, name: 'Numbers', bgColor: '#F4A300' },
+    {
+        id: 1,
+        name: 'calendar',
+        bgColor: '#E1BEE7',
+        icon: faCalendar,
+        borderLeftColor: '#BA68C8'
+    },
+    {
+        id: 2,
+        name: 'color',
+        bgColor: '#FFEB3B',
+        icon: faPalette,
+        borderLeftColor: '#FBC02D'
+    },
+    {
+        id: 3,
+        name: 'days',
+        bgColor: '#81C784',
+        icon: faCalendarDay,
+        borderLeftColor: '#66BB6A'
+    },
+    {
+        id: 4,
+        name: 'drink',
+        bgColor: '#FF7043',
+        icon: faCocktail,
+        borderLeftColor: '#F4511E'
+    },
+    {
+        id: 5,
+        name: 'family',
+        bgColor: '#64B5F6',
+        icon: faUsers,
+        borderLeftColor: '#2196F3'
+    },
+    {
+        id: 6,
+        name: 'food',
+        bgColor: '#FFCDD2',
+        icon: faUtensils,
+        borderLeftColor: '#FF5252'
+    },
+    {
+        id: 7,
+        name: 'greetings',
+        bgColor: '#4CAF50',
+        icon: faHandshake,
+        borderLeftColor: '#388E3C'
+    },
+    {
+        id: 8,
+        name: 'number',
+        bgColor: '#FF8A65',
+        icon: faHashtag,
+        borderLeftColor: '#F57C00'
+    },
+    {
+        id: 9,
+        name: 'relationships',
+        bgColor: '#9C27B0',
+        icon: faHeart,
+        borderLeftColor: '#7B1FA2'
+    },
+    {
+        id: 10,
+        name: 'source_vids',
+        bgColor: '#90CAF9',
+        icon: faVideo,
+        borderLeftColor: '#42A5F5'
+    },
+    {
+        id: 11,
+        name: 'survival',
+        bgColor: '#81D4FA',
+        icon: faVideo,
+        borderLeftColor: '#4FC3F7'
+    }
 ];
 
 const subCategories = {
-    Colors: [
-        { id: 1, title: 'Color Theory', videoUrl: 'https://www.youtube.com/embed/video1' },
-        { id: 2, title: 'Color Palettes', videoUrl: 'https://www.youtube.com/embed/video2' },
+    "calendar": [
+        {
+            "id": 1,
+            "title": "April",
+            "videoUrl": "https://www.youtube.com/embed/April"
+        },
+        {
+            "id": 2,
+            "title": "August",
+            "videoUrl": "https://www.youtube.com/embed/August"
+        },
+        {
+            "id": 3,
+            "title": "December",
+            "videoUrl": "https://www.youtube.com/embed/December"
+        },
+        {
+            "id": 4,
+            "title": "February",
+            "videoUrl": "https://www.youtube.com/embed/February"
+        },
+        {
+            "id": 5,
+            "title": "January",
+            "videoUrl": "https://www.youtube.com/embed/January"
+        },
+        {
+            "id": 6,
+            "title": "July",
+            "videoUrl": "https://www.youtube.com/embed/July"
+        },
+        {
+            "id": 7,
+            "title": "June",
+            "videoUrl": "https://www.youtube.com/embed/June"
+        },
+        {
+            "id": 8,
+            "title": "March",
+            "videoUrl": "https://www.youtube.com/embed/March"
+        },
+        {
+            "id": 9,
+            "title": "May",
+            "videoUrl": "https://www.youtube.com/embed/May"
+        },
+        {
+            "id": 10,
+            "title": "November",
+            "videoUrl": "https://www.youtube.com/embed/November"
+        },
+        {
+            "id": 11,
+            "title": "October",
+            "videoUrl": "https://www.youtube.com/embed/October"
+        },
+        {
+            "id": 12,
+            "title": "September",
+            "videoUrl": "https://www.youtube.com/embed/September"
+        }
     ],
-    Numbers: [
-        { id: 1, title: 'Basic Math', videoUrl: 'https://www.youtube.com/embed/video3' },
-        { id: 2, title: 'Advanced Algebra', videoUrl: 'https://www.youtube.com/embed/video4' },
+    "color": [
+        {
+            "id": 1,
+            "title": "Black",
+            "videoUrl": "https://www.youtube.com/embed/Black"
+        },
+        {
+            "id": 2,
+            "title": "Blue",
+            "videoUrl": "https://www.youtube.com/embed/Blue"
+        },
+        {
+            "id": 3,
+            "title": "Brown",
+            "videoUrl": "https://www.youtube.com/embed/Brown"
+        },
+        {
+            "id": 4,
+            "title": "Dark",
+            "videoUrl": "https://www.youtube.com/embed/Dark"
+        },
+        {
+            "id": 5,
+            "title": "Gray",
+            "videoUrl": "https://www.youtube.com/embed/Gray"
+        },
+        {
+            "id": 6,
+            "title": "Green",
+            "videoUrl": "https://www.youtube.com/embed/Green"
+        },
+        {
+            "id": 7,
+            "title": "Light",
+            "videoUrl": "https://www.youtube.com/embed/Light"
+        },
+        {
+            "id": 8,
+            "title": "Orange",
+            "videoUrl": "https://www.youtube.com/embed/Orange"
+        },
+        {
+            "id": 9,
+            "title": "output_images",
+            "videoUrl": "https://www.youtube.com/embed/output_images"
+        },
+        {
+            "id": 10,
+            "title": "Pink",
+            "videoUrl": "https://www.youtube.com/embed/Pink"
+        },
+        {
+            "id": 11,
+            "title": "Red",
+            "videoUrl": "https://www.youtube.com/embed/Red"
+        },
+        {
+            "id": 12,
+            "title": "Violet",
+            "videoUrl": "https://www.youtube.com/embed/Violet"
+        },
+        {
+            "id": 13,
+            "title": "White",
+            "videoUrl": "https://www.youtube.com/embed/White"
+        },
+        {
+            "id": 14,
+            "title": "Yellow",
+            "videoUrl": "https://www.youtube.com/embed/Yellow"
+        }
     ],
+    "days": [
+        {
+            "id": 1,
+            "title": "Saturday",
+            "videoUrl": "https://www.youtube.com/embed/Saturday"
+        },
+        {
+            "id": 2,
+            "title": "Thursday",
+            "videoUrl": "https://www.youtube.com/embed/Thursday"
+        },
+        {
+            "id": 3,
+            "title": "Today",
+            "videoUrl": "https://www.youtube.com/embed/Today"
+        },
+        {
+            "id": 4,
+            "title": "Yesterday",
+            "videoUrl": "https://www.youtube.com/embed/Yesterday"
+        }
+    ],
+    "drink": [
+        {
+            "id": 1,
+            "title": "Beer",
+            "videoUrl": "https://www.youtube.com/embed/Beer"
+        },
+        {
+            "id": 2,
+            "title": "Coffee",
+            "videoUrl": "https://www.youtube.com/embed/Coffee"
+        },
+        {
+            "id": 3,
+            "title": "Cold",
+            "videoUrl": "https://www.youtube.com/embed/Cold"
+        },
+        {
+            "id": 4,
+            "title": "Hot",
+            "videoUrl": "https://www.youtube.com/embed/Hot"
+        },
+        {
+            "id": 5,
+            "title": "Juice",
+            "videoUrl": "https://www.youtube.com/embed/Juice"
+        },
+        {
+            "id": 6,
+            "title": "No Sugar",
+            "videoUrl": "https://www.youtube.com/embed/No Sugar"
+        },
+        {
+            "id": 7,
+            "title": "Sugar",
+            "videoUrl": "https://www.youtube.com/embed/Sugar"
+        },
+        {
+            "id": 8,
+            "title": "Tea",
+            "videoUrl": "https://www.youtube.com/embed/Tea"
+        },
+        {
+            "id": 9,
+            "title": "Wine",
+            "videoUrl": "https://www.youtube.com/embed/Wine"
+        }
+    ],
+    "family": [
+        {
+            "id": 1,
+            "title": "Auntie",
+            "videoUrl": "https://www.youtube.com/embed/Auntie"
+        },
+        {
+            "id": 2,
+            "title": "Cousin",
+            "videoUrl": "https://www.youtube.com/embed/Cousin"
+        },
+        {
+            "id": 3,
+            "title": "Father",
+            "videoUrl": "https://www.youtube.com/embed/Father"
+        },
+        {
+            "id": 4,
+            "title": "Grandma",
+            "videoUrl": "https://www.youtube.com/embed/Grandma"
+        },
+        {
+            "id": 5,
+            "title": "Grandpa",
+            "videoUrl": "https://www.youtube.com/embed/Grandpa"
+        },
+        {
+            "id": 6,
+            "title": "Mother",
+            "videoUrl": "https://www.youtube.com/embed/Mother"
+        },
+        {
+            "id": 7,
+            "title": "Sister",
+            "videoUrl": "https://www.youtube.com/embed/Sister"
+        },
+        {
+            "id": 8,
+            "title": "Uncle",
+            "videoUrl": "https://www.youtube.com/embed/Uncle"
+        }
+    ],
+    "food": [
+        {
+            "id": 1,
+            "title": "Beverage",
+            "videoUrl": "https://www.youtube.com/embed/Beverage"
+        },
+        {
+            "id": 2,
+            "title": "Bread",
+            "videoUrl": "https://www.youtube.com/embed/Bread"
+        },
+        {
+            "id": 3,
+            "title": "Cheese",
+            "videoUrl": "https://www.youtube.com/embed/Cheese"
+        },
+        {
+            "id": 4,
+            "title": "Condiments",
+            "videoUrl": "https://www.youtube.com/embed/Condiments"
+        },
+        {
+            "id": 5,
+            "title": "Dessert",
+            "videoUrl": "https://www.youtube.com/embed/Dessert"
+        },
+        {
+            "id": 6,
+            "title": "Dinner",
+            "videoUrl": "https://www.youtube.com/embed/Dinner"
+        },
+        {
+            "id": 7,
+            "title": "Egg",
+            "videoUrl": "https://www.youtube.com/embed/Egg"
+        },
+        {
+            "id": 8,
+            "title": "Lunch",
+            "videoUrl": "https://www.youtube.com/embed/Lunch"
+        },
+        {
+            "id": 9,
+            "title": "Meat",
+            "videoUrl": "https://www.youtube.com/embed/Meat"
+        },
+        {
+            "id": 10,
+            "title": "Noodles",
+            "videoUrl": "https://www.youtube.com/embed/Noodles"
+        },
+        {
+            "id": 11,
+            "title": "Pizza",
+            "videoUrl": "https://www.youtube.com/embed/Pizza"
+        },
+        {
+            "id": 12,
+            "title": "Rice",
+            "videoUrl": "https://www.youtube.com/embed/Rice"
+        },
+        {
+            "id": 13,
+            "title": "Soup",
+            "videoUrl": "https://www.youtube.com/embed/Soup"
+        },
+        {
+            "id": 14,
+            "title": "Sweets",
+            "videoUrl": "https://www.youtube.com/embed/Sweets"
+        },
+        {
+            "id": 15,
+            "title": "Vegetables",
+            "videoUrl": "https://www.youtube.com/embed/Vegetables"
+        }
+    ]
+}
+
+const CategoryCard = ({ category, setSelectedCategory }) => {
+    return (
+        <div
+            className="p-4 m-2 rounded-lg shadow-md"
+            style={{
+                background: `linear-gradient(to right, ${category.bgColor}, ${category.borderLeftColor})`,
+                borderLeft: `6px solid ${category.borderLeftColor}`
+            }}
+            onClick={() => {
+
+                console.log("DEx")
+                setSelectedCategory(category.name)
+            }}
+        >
+            <div className="flex items-center space-x-3">
+                <FontAwesomeIcon icon={category.icon} size="1x" color={category.borderLeftColor} />
+                <h3 className="text-sm font-semibold">{category.name}</h3>
+            </div>
+        </div>
+    );
 };
+
+
+
+
+
+
 const CategoryComponent = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
+
+    console.log({ selectedCategory })
     return (
         <div className="space-y-4 p-8">
-            <div className="grid grid-cols-2 gap-4">
+            {/* Banner Section */}
+            <h1 className="text-3xl font-bold text-muted">Welcome to Our Tutorial Platform</h1>
+            {/* <div className="bg-gradient-to-r from-sky-400 to-sky-600 text-white text-center p-6 rounded-lg">
+                <h1 className="text-3xl font-bold">Welcome to Our Tutorial Platform</h1>
+             
+            </div> */}
+            <div className="grid grid-cols-2 gap-6">
                 {categories.map(category => (
-                    <div
-                        key={category.id}
-                        className={`p-4 rounded-lg shadow-lg cursor-pointer text-white`}
-                        style={{ backgroundColor: category.bgColor }}
-                        onClick={() => setSelectedCategory(category.name)}
-                    >
-                        <h3 className="text-xl">{category.name}</h3>
-                    </div>
+                    <CategoryCard key={category.id} category={category} setSelectedCategory={setSelectedCategory} />
                 ))}
             </div>
+
 
             {selectedCategory && (
                 <div>
                     <h2 className="text-2xl mt-8">Tutorials for {selectedCategory}</h2>
                     <div className="space-y-4 mt-4">
-                        {subCategories[selectedCategory].map(subCategory => (
+                        {subCategories[selectedCategory]?.map(subCategory => (
                             <div
                                 key={subCategory.id}
                                 className="p-4 rounded-lg shadow-md bg-white cursor-pointer"
