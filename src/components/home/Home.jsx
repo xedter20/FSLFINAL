@@ -17,9 +17,79 @@ import { addSignData } from "../../redux/actions/signdataaction";
 import ProgressBar from "./../Detect/ProgressBar/ProgressBar";
 
 import DisplayImg from "../../assests/displayGif.gif";
-import { FaCamera, FaImage, FaHistory } from "react-icons/fa";
+import { FaCamera, FaImage, FaHistory, FaInfoCircle } from "react-icons/fa";
 
+import ReactPlayer from 'react-player'; // If using react-player for video
 let startTime = "";
+
+const categories = [
+    { id: 1, name: 'Colors', bgColor: '#98C1D9' },
+    { id: 2, name: 'Numbers', bgColor: '#F4A300' },
+];
+
+const subCategories = {
+    Colors: [
+        { id: 1, title: 'Color Theory', videoUrl: 'https://www.youtube.com/embed/video1' },
+        { id: 2, title: 'Color Palettes', videoUrl: 'https://www.youtube.com/embed/video2' },
+    ],
+    Numbers: [
+        { id: 1, title: 'Basic Math', videoUrl: 'https://www.youtube.com/embed/video3' },
+        { id: 2, title: 'Advanced Algebra', videoUrl: 'https://www.youtube.com/embed/video4' },
+    ],
+};
+const CategoryComponent = () => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+
+    return (
+        <div className="space-y-4 p-8">
+            <div className="grid grid-cols-2 gap-4">
+                {categories.map(category => (
+                    <div
+                        key={category.id}
+                        className={`p-4 rounded-lg shadow-lg cursor-pointer text-white`}
+                        style={{ backgroundColor: category.bgColor }}
+                        onClick={() => setSelectedCategory(category.name)}
+                    >
+                        <h3 className="text-xl">{category.name}</h3>
+                    </div>
+                ))}
+            </div>
+
+            {selectedCategory && (
+                <div>
+                    <h2 className="text-2xl mt-8">Tutorials for {selectedCategory}</h2>
+                    <div className="space-y-4 mt-4">
+                        {subCategories[selectedCategory].map(subCategory => (
+                            <div
+                                key={subCategory.id}
+                                className="p-4 rounded-lg shadow-md bg-white cursor-pointer"
+                                onClick={() => setSelectedSubCategory(subCategory)}
+                            >
+                                <h3 className="text-lg">{subCategory.title}</h3>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {selectedSubCategory && (
+                <div className="mt-8">
+                    <h3 className="text-xl">Now Viewing: {selectedSubCategory.title}</h3>
+                    <iframe
+                        width="100%"
+                        height="500"
+                        src={selectedSubCategory.videoUrl}
+                        title={selectedSubCategory.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                </div>
+            )}
+        </div>
+    );
+};
 
 const TabMenu = ({
     activeTab,
@@ -33,7 +103,7 @@ const TabMenu = ({
 }) => {
     const tabs = [
         { id: "camera", label: "Camera", icon: <FaCamera /> },
-        { id: "practice", label: "Practice", icon: <FaImage /> },
+        { id: "practice", label: "About", icon: <FaInfoCircle /> },
         // { id: "history", label: "History", icon: <FaHistory /> },
     ];
 
@@ -257,7 +327,7 @@ const Detect = () => {
             const recognizer = await GestureRecognizer.createFromOptions(vision, {
                 baseOptions: {
                     modelAssetPath:
-                        'https://firebasestorage.googleapis.com/v0/b/avdeasis-4b5c7.appspot.com/o/gesture_recognizer.task?alt=media&token=ace32f7b-3660-4d65-8d3d-6341b90b5acd'
+                        'https://firebasestorage.googleapis.com/v0/b/avdeasis-4b5c7.appspot.com/o/gesture_recognizer%20(3).task?alt=media&token=68dcbb0a-d793-49d1-aac2-525403d2ac24'
                 },
                 numHands: 2,
                 runningMode: runningMode,
@@ -276,7 +346,8 @@ const Detect = () => {
                 {/* <Navbar /> */}
 
                 {/* Camera Section */}
-                <div className="flex-grow bg-black w-full flex items-center justify-center pt-16"> {/* Added pt-16 to offset navbar height */}
+
+                <div className={`flex-grow w-full flex items-center justify-center pt-16 ${activeTab === "camera" ? 'bg-gray-700' : 'bg-white'}`}>{/* Added pt-16 to offset navbar height */}
 
                     {/* Display webcam */}
                     {activeTab === "camera" && (
@@ -313,7 +384,7 @@ const Detect = () => {
                     )}
 
                     {/* Practice and History Tabs */}
-                    {activeTab === "practice" && <p className="text-white">Practice Mode</p>}
+                    {activeTab === "practice" && <CategoryComponent />}
                     {activeTab === "history" && <p className="text-white">History Data</p>}
                 </div>
 

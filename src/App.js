@@ -1,18 +1,18 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
 import {
   Navbar,
   Footer,
   Home,
   Detect,
   NotFound,
-  Dashboard,
-} from "./components";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+  Dashboard
+} from './components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const notifyMsg = (type, msg) => {
-  if (type === "success") {
+  if (type === 'success') {
     const notify = () => toast.success(msg);
     notify();
   } else {
@@ -32,7 +32,6 @@ const Layout = ({ children }) => {
 };
 
 function App() {
-  
   return (
     <div className="App">
       <Routes>
@@ -61,7 +60,7 @@ function App() {
           path="/dashboard"
           element={
             <Layout>
-              <Dashboard/>
+              <Dashboard />
             </Layout>
           }
         />
