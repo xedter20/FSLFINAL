@@ -783,7 +783,7 @@ const Detect = () => {
             const recognizer = await GestureRecognizer.createFromOptions(vision, {
                 baseOptions: {
                     modelAssetPath:
-                        'https://firebasestorage.googleapis.com/v0/b/avdeasis-4b5c7.appspot.com/o/gesture_recognizer%20(3).task?alt=media&token=68dcbb0a-d793-49d1-aac2-525403d2ac24'
+                        'https://firebasestorage.googleapis.com/v0/b/avdeasis-4b5c7.appspot.com/o/gesture_recognizer%20(4).task?alt=media&token=be782707-bb23-4d99-9c94-a8bc65b99adc'
                 },
                 numHands: 2,
                 runningMode: runningMode,
