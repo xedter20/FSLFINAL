@@ -5,30 +5,26 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="A real-time Sign Language Detection app using MediaPipe and Reactjs"
-    />
+    <meta name="description" content="" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    
+
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-   
-    <title>Sign Language Recognition</title>
+
+    <title>Sign Swift</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
 
     <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
           navigator.serviceWorker
-            .register("./serviceWorker.js")
-            .then((reg) => {
+            .register('./serviceWorker.js')
+            .then(reg => {
               // console.log("Worker Registered");
             })
-            .catch((err) => {
+            .catch(err => {
               // console.log("Error in service worker registration.");
             });
         });
