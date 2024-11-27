@@ -30,81 +30,75 @@ const categories = [
     {
         id: 1,
         name: 'calendar',
-        bgColor: '#E1BEE7',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faCalendar,
-        borderLeftColor: '#BA68C8'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 2,
         name: 'color',
-        bgColor: '#FFEB3B',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faPalette,
-        borderLeftColor: '#FBC02D'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 3,
         name: 'days',
-        bgColor: '#81C784',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faCalendarDay,
-        borderLeftColor: '#66BB6A'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 4,
         name: 'drink',
-        bgColor: '#FF7043',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faCocktail,
-        borderLeftColor: '#F4511E'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 5,
         name: 'family',
-        bgColor: '#64B5F6',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faUsers,
-        borderLeftColor: '#2196F3'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 6,
         name: 'food',
-        bgColor: '#FFCDD2',
+        bgColor: '#FFCDD2', // Already matching
         icon: faUtensils,
-        borderLeftColor: '#FF5252'
+        borderLeftColor: '#FF5252' // Already matching
     },
     {
         id: 7,
         name: 'greetings',
-        bgColor: '#4CAF50',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faHandshake,
-        borderLeftColor: '#388E3C'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 8,
         name: 'number',
-        bgColor: '#FF8A65',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faHashtag,
-        borderLeftColor: '#F57C00'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
     {
         id: 9,
         name: 'relationships',
-        bgColor: '#90CAF9',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faHeart,
-        borderLeftColor: '#42A5F5'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     },
-    // {
-    //     id: 10,
-    //     name: 'source_vids',
-    //     bgColor: '#90CAF9',
-    //     icon: faVideo,
-    //     borderLeftColor: '#42A5F5'
-    // },
     {
         id: 11,
         name: 'survival',
-        bgColor: '#81D4FA',
+        bgColor: '#FFCDD2', // Updated to match 'food'
         icon: faVideo,
-        borderLeftColor: '#4FC3F7'
+        borderLeftColor: '#FF5252' // Updated to match 'food'
     }
 ];
+
 
 const subCategories = {
     "calendar": [
@@ -210,11 +204,7 @@ const subCategories = {
             "title": "Orange",
             "videoUrl": "https://www.youtube.com/embed/Orange"
         },
-        {
-            "id": 9,
-            "title": "output_images",
-            "videoUrl": "https://www.youtube.com/embed/output_images"
-        },
+
         {
             "id": 10,
             "title": "Pink",
@@ -434,11 +424,12 @@ const subCategories = {
 const CategoryCard = ({ category, setSelectedCategory }) => {
     return (
         <div
-            className="p-4 m-2 rounded-lg shadow-md"
-            style={{
-                background: `linear-gradient(to right, ${category.bgColor}, ${category.borderLeftColor})`,
-                borderLeft: `6px solid ${category.borderLeftColor}`
-            }}
+            className="p-4 m-2 rounded-lg shadow-md bg-gradient-to-r from-gray-100 to-orange-70"
+
+            // style={{
+            //     background: `linear-gradient(to right, ${category.bgColor}, ${category.borderLeftColor})`,
+            //     borderLeft: `6px solid ${category.borderLeftColor}`
+            // }}
             onClick={() => {
 
                 console.log("DEx")
@@ -506,7 +497,7 @@ const CategoryComponent = () => {
                         {subCategories[selectedCategory]?.map((subCategory) => (
                             <div
                                 key={subCategory.id}
-                                className="p-6 rounded-xl shadow-lg bg-gradient-to-r from-blue-100 to-blue-200 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
+                                className="p-3 rounded-xl shadow-lg bg-gradient-to-r from-gray-100 to-orange-200 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
                             >
                                 <div
                                     className="flex items-center justify-between"
