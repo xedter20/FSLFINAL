@@ -815,6 +815,8 @@ const Detect = () => {
                                 ref={webcamRef}
                                 videoConstraints={{
                                     facingMode: "user", // front-facing camera
+                                    width: 1280, // Adjust based on your landscape resolution
+                                    height: 720, // Adjust based on your landscape resolution
                                 }}
                                 className="w-full h-full object-cover"
                             // className="signlang_webcam w-full h-full object-cover"
