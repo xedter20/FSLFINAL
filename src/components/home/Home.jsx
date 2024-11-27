@@ -585,6 +585,7 @@ const TabMenu = ({
 
 const Detect = () => {
     const webcamRef = useRef(null);
+    const [rotation, setRotation] = useState(0);
     const canvasRef = useRef(null);
     const [webcamRunning, setWebcamRunning] = useState(false);
     const [gestureOutput, setGestureOutput] = useState("");
@@ -608,7 +609,17 @@ const Detect = () => {
     const [currentImage, setCurrentImage] = useState(null);
     const [activeTab, setActiveTab] = useState("camera");
 
+    useEffect(() => {
+        const handleOrientation = () => {
+            const angle = window.orientation || window.screen.orientation.angle;
+            setRotation(angle); // Set rotation based on orientation
+        };
 
+        window.addEventListener("orientationchange", handleOrientation);
+        handleOrientation(); // Initialize on load
+
+        return () => window.removeEventListener("orientationchange", handleOrientation);
+    }, []);
     useEffect(() => {
         let intervalId;
         if (webcamRunning) {
@@ -818,6 +829,14 @@ const Detect = () => {
                                     width: 1280, // Adjust based on your landscape resolution
                                     height: 720, // Adjust based on your landscape resolution
                                 }}
+
+                                style={{
+                                    transform: `rotate(${rotation}deg)`,
+                                    transformOrigin: "center",
+                                    width: "100%",
+                                    height: "100%",
+                                }}
+
                                 className="w-full h-full object-cover"
                             // className="signlang_webcam w-full h-full object-cover"
                             />
