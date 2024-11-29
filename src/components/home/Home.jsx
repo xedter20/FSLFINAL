@@ -167,7 +167,7 @@ const subCategories = {
         {
             "id": 1,
             "title": "Black",
-            "videoUrl": "https://www.youtube.com/embed/Black"
+            "videoUrl": "https://drive.google.com/uc?export=download&id=12j2JodKMGKaGN1P3r8Z1ZX-Z1DrLJLoD"
         },
         {
             "id": 2,
@@ -421,43 +421,39 @@ const subCategories = {
     ]
 }
 
-const CategoryCard = ({ category, setSelectedCategory }) => {
-    return (
-        <div
-            className="p-4 m-2 rounded-lg shadow-md bg-gradient-to-r from-gray-100 to-orange-70"
-
-            // style={{
-            //     background: `linear-gradient(to right, ${category.bgColor}, ${category.borderLeftColor})`,
-            //     borderLeft: `6px solid ${category.borderLeftColor}`
-            // }}
-            onClick={() => {
-
-                console.log("DEx")
-                setSelectedCategory(category.name)
-            }}
-        >
-            <div className="flex items-center space-x-3">
-                <FontAwesomeIcon icon={category.icon} size="1x" color={category.borderLeftColor} />
-                <h3 className="text-sm font-bold first-letter:uppercase">{category.name}</h3>
-            </div>
-        </div>
-    );
-};
-
-
-
-
-
-
 const CategoryComponent = () => {
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const [searchQuerySub, setSearchQuerySub] = useState("");
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [activeSubCategory, setActiveSubCategory] = useState(null);
 
-    console.log({ selectedCategory });
+    const filteredCategories = categories.filter((category) =>
+        category.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // Filter subcategories based on search query matching 'title'
+    // This should filter subcategories even when no category is selected.
+    const filteredSubCategories = selectedCategory
+        ? subCategories[selectedCategory]?.filter((subCategory) =>
+            searchQuerySub ? subCategory.title.toLowerCase().includes(searchQuerySub.toLowerCase()) : true
+        )
+        : [];
+
+
+
+    const handleSubCategorySearch = (e) => {
+        setSearchQuerySub(e.target.value);
+        // setSelectedCategory(null); // Reset selected category on new search
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+        setSelectedCategory(null); // Reset selected category on new search
+    };
 
     const toggleAccordion = (subCategoryId) => {
-
-        console.log({ subCategoryId })
         if (activeSubCategory === subCategoryId) {
             setActiveSubCategory(null); // Close the accordion if already active
         } else {
@@ -467,34 +463,65 @@ const CategoryComponent = () => {
 
     return (
         <div className="space-y-4 p-3">
-            {/* Banner Section */}
-            {!selectedCategory && <h1 className="text-3xl font-bold text-muted">Welcome to SignSwift</h1>}
+            {/* Search Field */}
+            <h1 className="text-2xl font-bold">Welcome to SignSwift</h1>
+            {!selectedCategory && <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search categories or subcategories..."
+                className="w-full p-3 border rounded-lg text-sm"
+            />}
 
-            {/* Category Cards Section - Only show if no category is selected */}
+
+            {selectedCategory && <input
+                type="text"
+                // value={searchQuery}
+                // onChange={handleSearchChange}
+                onChange={handleSubCategorySearch}
+                placeholder="Search subcategories..."
+                className="w-full p-3 border rounded-lg text-sm"
+            />}
+            {/* Category Cards Section */}
             {!selectedCategory && (
                 <div className="grid grid-cols-2 gap-6">
-                    {categories.map((category) => (
-                        <CategoryCard
+                    {filteredCategories.map((category) => (
+                        <div
                             key={category.id}
-                            category={category}
-                            setSelectedCategory={setSelectedCategory}
-                        />
+                            className="p-4 m-2 rounded-lg shadow-md bg-gradient-to-r from-gray-100 to-orange-70"
+                            onClick={() => setSelectedCategory(category.name)}
+                        >
+                            <div className="flex items-center space-x-3">
+                                <FontAwesomeIcon
+                                    icon={category.icon}
+                                    size="1x"
+                                    color={category.borderLeftColor}
+                                />
+                                <h3 className="text-sm font-bold first-letter:uppercase">
+                                    {category.name}
+                                </h3>
+                            </div>
+                        </div>
                     ))}
                 </div>
             )}
 
+
+
             {/* Show tutorials for selected category */}
             {selectedCategory && (
-                <div className="bg-white rounded-lg shadow-xl p-4 space-y-6">
+                <div className="bg-white rounded-lg p-4 space-y-6">
                     <button
                         onClick={() => setSelectedCategory(null)}
                         className="text-sm text-blue-500 hover:text-blue-700 transition-all mb-4 inline-block"
                     >
                         &larr; Back to Categories
                     </button>
-                    <h2 className="text-2xl font-bold text-gray-700">Video Tutorials for {selectedCategory}</h2>
+                    <h2 className="text-2xl font-bold text-gray-700">
+                        Video Tutorials for {selectedCategory}
+                    </h2>
                     <div className="space-y-6 mt-6">
-                        {subCategories[selectedCategory]?.map((subCategory) => (
+                        {filteredSubCategories.map((subCategory) => (
                             <div
                                 key={subCategory.id}
                                 className="p-3 rounded-xl shadow-lg bg-gradient-to-r from-gray-100 to-orange-100 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
@@ -506,8 +533,6 @@ const CategoryComponent = () => {
                                     <h3 className="text-2xl font-medium text-gray-800">
                                         {subCategory.title}
                                     </h3>
-
-                                    {/* Accordion Icon from react-icons */}
                                     {activeSubCategory === subCategory.id ? (
                                         <FaChevronUp className="text-gray-600" />
                                     ) : (
@@ -515,12 +540,10 @@ const CategoryComponent = () => {
                                     )}
                                 </div>
 
-                                <p className="text-gray-600 mt-2">{subCategory.description}</p>
-
                                 {/* Accordion Content (Video) */}
                                 {activeSubCategory === subCategory.id && (
                                     <div className="mt-4">
-                                        <div className="relative w-full pt-[56.25%]"> {/* 16:9 Aspect Ratio */}
+                                        <div className="relative w-full pt-[56.25%]">
                                             <iframe
                                                 className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
                                                 src={subCategory.videoUrl}
@@ -538,11 +561,20 @@ const CategoryComponent = () => {
                 </div>
             )}
 
-
+            {/* No Results Found */}
+            {!selectedCategory &&
+                searchQuery &&
+                filteredCategories.length === 0 && (
+                    <p className="text-gray-500 text-center">No categories found.</p>
+                )}
+            {selectedCategory &&
+                searchQuery &&
+                filteredSubCategories.length === 0 && (
+                    <p className="text-gray-500 text-center">No subcategories found.</p>
+                )}
         </div>
     );
 };
-
 
 const TabMenu = ({
     activeTab,
