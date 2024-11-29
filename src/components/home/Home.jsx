@@ -167,7 +167,7 @@ const subCategories = {
         {
             "id": 1,
             "title": "Black",
-            "videoUrl": "https://drive.google.com/uc?export=download&id=12j2JodKMGKaGN1P3r8Z1ZX-Z1DrLJLoD"
+            "videoUrl": "https://drive.google.com/file/d/12j2JodKMGKaGN1P3r8Z1ZX-Z1DrLJLoD/preview"
         },
         {
             "id": 2,
