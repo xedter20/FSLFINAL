@@ -844,12 +844,12 @@ const Detect = () => {
                                     <span>Label</span>
                                     <span>Percent</span>
                                 </div>
-                                <div className="space-y-2 p-2">
+                                <div className="space-y-2 p-2 text-center">
                                     {resultList.map((item, index) => (
                                         item.name && item.percent ? (
                                             <div
                                                 key={index}
-                                                className="grid grid-cols-3 gap-2 text-sm text-gray-200"
+                                                className="text-center grid grid-cols-3 gap-2 text-sm text-gray-200"
                                             >
                                                 <span>{item.name}</span>
                                                 <span>{item.percent}%</span>
