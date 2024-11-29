@@ -596,6 +596,9 @@ const Detect = () => {
 
     const [detectedData, setDetectedData] = useState([]);
 
+
+    const [resultList, setResultList] = useState([]);
+
     const user = useSelector((state) => state.auth?.user);
 
     const accessToken = 'ya29.a0AeDClZAL-1fYFx9EruhQfYBEnEqwXAV8MrLCAsZ3-1T…wIaCgYKAa8SARMSFQHGX2MiX84f8rwR8o3PRiXj9vOo5g0170';
@@ -662,6 +665,7 @@ const Detect = () => {
 
         // Draw the results on the canvas, if any.
         if (results.landmarks) {
+            console.log("dex")
             for (const landmarks of results.landmarks) {
                 drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
                     color: "#00FF00",
@@ -671,7 +675,11 @@ const Detect = () => {
                 drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
             }
         }
+
+        console.log(results.gestures)
         if (results.gestures.length > 0) {
+
+            console.log({ dex: results.gestures });
             setDetectedData((prevData) => [
                 ...prevData,
                 {
@@ -679,11 +687,18 @@ const Detect = () => {
                 },
             ]);
 
-            setGestureOutput(results.gestures[0][0].categoryName);
+
+            const categoryList = results.gestures[0].map(item => ({
+                name: item.categoryName,
+                percent: Math.round(parseFloat(item.score) * 100)
+            }));
+            setResultList(categoryList);
+            setGestureOutput(categoryList);
             setProgress(Math.round(parseFloat(results.gestures[0][0].score) * 100));
         } else {
             setGestureOutput("");
             setProgress("");
+            setResultList([]);
         }
 
         if (webcamRunning === true) {
@@ -794,7 +809,7 @@ const Detect = () => {
     }, [runningMode]);
 
 
-    console.log({ accessToken })
+
     return (
         accessToken ? <>
 
@@ -823,6 +838,29 @@ const Detect = () => {
                                 ref={canvasRef}
                                 className="signlang_canvas w-full h-full absolute top-0 left-0"
                             />
+
+                            {resultList.length > 0 && <div className="mt-4 font-bold absolute bg-gray-700 bg-opacity-50 rounded-lg border border-gray-300 shadow-md">
+                                <div className="grid grid-cols-3 gap-2 text-sm font-medium border-b pb-2 bg-gray-700 text-white rounded-t-lg p-4">
+                                    <span>Label</span>
+                                    <span>Percent</span>
+                                </div>
+                                <div className="space-y-2 p-2">
+                                    {resultList.map((item, index) => (
+                                        item.name && item.percent ? (
+                                            <div
+                                                key={index}
+                                                className="grid grid-cols-3 gap-2 text-sm text-gray-200"
+                                            >
+                                                <span>{item.name}</span>
+                                                <span>{item.percent}%</span>
+                                            </div>
+                                        ) : <div className="text-center text-white">No result.</div>
+                                    ))}
+                                </div>
+                            </div>
+                            }
+
+
                             <button
 
                                 className="border-2 border-gray-400 text-white rounded-full font-bold w-20 h-20 absolute 
@@ -835,15 +873,7 @@ const Detect = () => {
                                     <FaPlay className="text-xl" /> // Play icon
                                 )}
                             </button>
-                            <div className="mt-4  font-bold">
-                                <p>Result: {gestureOutput}</p>
-                                {/* <div className="w-full bg-gray-700 h-2 mt-2">
-                                    <div
-                                        className="bg-green-500 h-2"
-                                        style={{ width: `${progress}%` }}
-                                    ></div>
-                                </div> */}
-                            </div>
+
                         </div>
                     )}
 
