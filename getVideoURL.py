@@ -18,16 +18,22 @@ sub_categories = {}
 
 # Function to get Firebase download URL for a file in the requested format
 def get_firebase_download_url(file_path):
-    bucket = storage.bucket()
-    blob = bucket.blob(file_path)
-    
-    # URL encode the file path to handle spaces and special characters
-    encoded_file_path = quote_plus(file_path)
-    
-    # Construct the URL with `alt=media` and a signed token
-    url = f'https://firebasestorage.googleapis.com/v0/b/{bucket.name}/o/{encoded_file_path}?alt=media&token={blob.generate_signed_url(version="v4", expiration=3600, method="GET")}'
-    
-    return url
+    try:
+        bucket = storage.bucket()  # Get the Firebase Storage bucket
+        blob = bucket.blob(file_path)  # Get the blob object for the file path
+
+        # URL encode the file path to handle spaces and special characters
+        encoded_file_path = quote_plus(file_path)
+
+        # Construct the URL with `alt=media` and a signed token
+        url = f'https://firebasestorage.googleapis.com/v0/b/{bucket.name}/o/{encoded_file_path}?alt=media&token={blob.generate_signed_url(version="v4", expiration=3600, method="GET")}'
+        
+        return url  # Return the generated URL
+
+    except Exception as e:
+        print(f"Error fetching URL for {file_path}: {e}")  # Log the error
+        return None  # Return None if there's an error
+
 
 # Iterate through the main folders (top-level categories)
 for idx, category_name in enumerate(os.listdir(base_directory), start=1):
