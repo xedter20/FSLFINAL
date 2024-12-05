@@ -843,7 +843,7 @@ const CategoryComponent = ({ urlLinks }) => {
     return (
         <div className="space-y-4 p-3">
             {/* Welcome Text */}
-            <h1 className="text-2xl font-bold">Welcome to SignSwifts</h1>
+            <h1 className="text-2xl font-bold">Welcome to SignSwift</h1>
             {/* <div>
                 {JSON.stringify({ urlLinks })}
             </div> */}
