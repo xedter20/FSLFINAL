@@ -27,8 +27,17 @@ import {
     faPlayCircle,
     faPauseCircle,
     faCalendar, faPalette, faCalendarDay, faCocktail, faUsers, faUtensils, faHandshake, faHashtag, faHeart, faVideo, faSurvivalKit
-} from '@fortawesome/free-solid-svg-icons'; // If using react-player for video
+} from '@fortawesome/free-solid-svg-icons';
+
+
+import { getStorage, ref, getDownloadURL } from "firebase/storage"; // If using react-player for video
 let startTime = "";
+
+const storage = getStorage();
+
+
+
+
 
 const categories = [
     {
@@ -425,170 +434,239 @@ const subCategories = {
     ]
 }
 
-const CategoryComponent = () => {
 
-    const [facingMode, setFacingMode] = useState("user"); // Start with the front-facing camera
-    const webcamRef = useRef(null);
+function getFileExtension(fileName) {
+    const possibleExtensions = ['mp4', 'MOV']; // List of possible file extensions
 
-    const toggleCamera = () => {
-        setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
-    };
+    // Logic to decide which extension to use (this could be based on a mapping or default choice)
+    // For simplicity, let's assume the file extension is mp4 by default
+    // If you have a way to check file type (e.g., via a metadata API or mapping), apply that here.
+    return possibleExtensions.includes(fileName.split('.').pop()) ? fileName.split('.').pop() : 'mp4';
+}
+async function getTitlesAndUrls() {
+    const results = [];
+
+    for (const category in subCategories) {
+        for (const item of subCategories[category]) {
+            const { title, videoUrl } = item;
+
+            try {
+                // Construct the file path based on videoUrl
+                const filePath = `FSL_Videos/${title}.mp4`;
+
+                const fileRef = ref(storage, filePath); // Reference to the file in Firebase Storage
 
 
+                const downloadUrl = await getDownloadURL(fileRef); // Get the download URL
+                results.push({ title, downloadUrl });
+            } catch (error) {
+
+                try {
+                    const filePath = `FSL_Videos/${title}.MOV`;
+                    const fileRef = ref(storage, filePath); // Reference to the file in Firebase Storage
+                    const downloadUrl = await getDownloadURL(fileRef); // Get the download URL
+                    results.push({ title, downloadUrl });
+                } catch (error) {
+                    results.push({ title, downloadUrl: '' });
+                }
+
+            }
+
+
+
+        }
+    }
+
+
+
+    return results;
+}
+
+
+
+const CategoryComponent = ({ urlLinks }) => {
+
+
+    console.log({ urlLinks })
     const [searchQuery, setSearchQuery] = useState("");
-
-    const [searchQuerySub, setSearchQuerySub] = useState("");
-
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [activeSubCategory, setActiveSubCategory] = useState(null);
-
-    const filteredCategories = categories.filter((category) =>
-        category.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    // Filter subcategories based on search query matching 'title'
-    // This should filter subcategories even when no category is selected.
-    const filteredSubCategories = selectedCategory
-        ? subCategories[selectedCategory]?.filter((subCategory) =>
-            searchQuerySub ? subCategory.title.toLowerCase().includes(searchQuerySub.toLowerCase()) : true
-        )
-        : [];
 
 
 
-    const handleSubCategorySearch = (e) => {
-        setSearchQuerySub(e.target.value);
-        // setSelectedCategory(null); // Reset selected category on new search
-    };
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
-        setSelectedCategory(null); // Reset selected category on new search
+        setSelectedCategory(null); // Reset selected category when searching
     };
 
-    const toggleAccordion = (subCategoryId) => {
-        if (activeSubCategory === subCategoryId) {
-            setActiveSubCategory(null); // Close the accordion if already active
-        } else {
-            setActiveSubCategory(subCategoryId); // Open the clicked accordion
-        }
+    const matchSearchQuery = (text) => {
+        if (!searchQuery.trim()) return true; // Return all if no search query
+        return text?.toLowerCase().includes(searchQuery.toLowerCase()); // Match text
     };
+
+    // Function to sort subcategories and categories alphabetically and prioritize exact matches
+    // Function to sort subcategories and categories alphabetically and prioritize exact matches
+    const sortMatches = (items) => {
+        return items.sort((a, b) => {
+            const aTitle = a.title || a.name || ''; // Ensure we have a fallback in case 'title' or 'name' is undefined
+            const bTitle = b.title || b.name || ''; // Ensure we have a fallback in case 'title' or 'name' is undefined
+
+            const isExactMatchA = aTitle.toLowerCase() === searchQuery.toLowerCase();
+            const isExactMatchB = bTitle.toLowerCase() === searchQuery.toLowerCase();
+
+            if (isExactMatchA && !isExactMatchB) return -1; // Place exact match at the top
+            if (!isExactMatchA && isExactMatchB) return 1;
+
+            // Use localeCompare safely with fallback
+            return aTitle?.localeCompare(bTitle); // Sort alphabetically
+        });
+    };
+
+    // Filter categories based on the search query
+    const filteredCategories = categories.filter((category) =>
+        matchSearchQuery(category.name)
+    );
+
+    // Sort categories and subcategories
+    const sortedFilteredCategories = sortMatches(filteredCategories);
+
+    // Flatten subcategories and filter based on the search query
+    // Filter subcategories with a check for undefined categories
+    const filteredSubCategories = selectedCategory
+        ? subCategories[selectedCategory]?.filter((subCategory) =>
+            matchSearchQuery(subCategory.title)
+        ) || [] // Provide an empty array if subCategories[selectedCategory] is undefined
+        : Object.entries(subCategories)
+            .flatMap(([category, subs]) =>
+                (subs || []) // Provide fallback if subs is undefined
+                    .filter((subCategory) => matchSearchQuery(subCategory.title))
+                    .map((subCategory) => ({ ...subCategory, parentCategory: category }))
+            );
+
+    // Sort subcategories to display exact matches first
+    const sortedFilteredSubCategories = sortMatches(filteredSubCategories);
+
 
     return (
         <div className="space-y-4 p-3">
-            {/* Search Field */}
-            <h1 className="text-2xl font-bold">Welcome to SignSwift</h1>
-            {!selectedCategory && <input
+            {/* Welcome Text */}
+            <h1 className="text-2xl font-bold">Welcome to SignSwifts</h1>
+            {/* <div>
+                {JSON.stringify({ urlLinks })}
+            </div> */}
+
+            {/* Search Input */}
+            <input
                 type="text"
                 value={searchQuery}
                 onChange={handleSearchChange}
                 placeholder="Search categories or subcategories..."
                 className="w-full p-3 border rounded-lg text-sm"
-            />}
+            />
 
-
-            {selectedCategory && <input
-                type="text"
-                // value={searchQuery}
-                // onChange={handleSearchChange}
-                onChange={handleSubCategorySearch}
-                placeholder="Search subcategories..."
-                className="w-full p-3 border rounded-lg text-sm"
-            />}
-            {/* Category Cards Section */}
+            {/* Category Selection */}
             {!selectedCategory && (
-                <div className="grid grid-cols-2 gap-6">
-                    {filteredCategories.map((category) => (
-                        <div
-                            key={category.id}
-                            className="p-4 m-2 rounded-lg shadow-md bg-gradient-to-r from-gray-100 to-orange-70"
-                            onClick={() => setSelectedCategory(category.name)}
-                        >
-                            <div className="flex items-center space-x-3">
-                                <FontAwesomeIcon
-                                    icon={category.icon}
-                                    size="1x"
-                                    color={category.borderLeftColor}
-                                />
-                                <h3 className="text-sm font-bold first-letter:uppercase">
-                                    {category.name}
-                                </h3>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-
-
-
-            {/* Show tutorials for selected category */}
-            {selectedCategory && (
-                <div className="bg-white rounded-lg p-4 space-y-6">
-                    <button
-                        onClick={() => setSelectedCategory(null)}
-                        className="text-sm text-blue-500 hover:text-blue-700 transition-all mb-4 inline-block"
-                    >
-                        &larr; Back to Categories
-                    </button>
-                    <h2 className="text-2xl font-bold text-gray-700">
-                        Video Tutorials for {selectedCategory}
-                    </h2>
-                    <div className="space-y-6 mt-6">
-                        {filteredSubCategories.map((subCategory) => (
+                <div className="space-y-4">
+                    {/* Sorted Filtered Categories */}
+                    <div className="grid grid-cols-2 gap-6">
+                        {sortedFilteredCategories.map((category) => (
                             <div
-                                key={subCategory.id}
-                                className="p-3 rounded-xl shadow-lg bg-gradient-to-r from-gray-100 to-orange-100 cursor-pointer transition-all transform hover:scale-105 hover:shadow-2xl"
+                                key={category.id}
+                                className="p-4 m-2 rounded-lg shadow-md bg-gradient-to-r from-gray-100 to-orange-70"
+                                onClick={() => setSelectedCategory(category.name)}
                             >
-                                <div
-                                    className="flex items-center justify-between"
-                                    onClick={() => toggleAccordion(subCategory.id)}
-                                >
-                                    <h3 className="text-2xl font-medium text-gray-800">
-                                        {subCategory.title}
+                                <div className="flex items-center space-x-3">
+                                    <FontAwesomeIcon
+                                        icon={category.icon}
+                                        size="1x"
+                                        color={category.borderLeftColor}
+                                    />
+                                    <h3 className="text-sm font-bold first-letter:uppercase">
+                                        {category.name}
                                     </h3>
-                                    {activeSubCategory === subCategory.id ? (
-                                        <FaChevronUp className="text-gray-600" />
-                                    ) : (
-                                        <FaChevronDown className="text-gray-600" />
-                                    )}
                                 </div>
-
-                                {/* Accordion Content (Video) */}
-                                {activeSubCategory === subCategory.id && (
-                                    <div className="mt-4">
-                                        <div className="relative w-full pt-[56.25%]">
-                                            <iframe
-                                                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
-                                                src={subCategory.videoUrl}
-                                                title={subCategory.title}
-                                                frameBorder="0"
-                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                            ></iframe>
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         ))}
                     </div>
+
+                    {/* Sorted Filtered Subcategories when no category is selected and search is not empty */}
+                    {searchQuery && sortedFilteredSubCategories.length > 0 && (
+                        <div className="space-y-6">
+                            {sortedFilteredSubCategories.map((subCategory) => {
+                                let downloadURL = urlLinks.find((item) => {
+                                    return item.title === subCategory.title
+
+                                })
+                                return <div
+                                    key={subCategory.id}
+                                    className="p-4 rounded-lg shadow bg-gray-50"
+                                >
+                                    <h4 className="text-sm font-semibold mb-2">
+                                        {subCategory.title}
+                                    </h4>
+                                    {downloadURL && downloadURL.downloadUrl ? (
+                                        <div>
+                                            <video controls className="w-full">
+                                                <source src={downloadURL.downloadUrl} type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    ) : (
+                                        <p className="text-xs">No video available</p>
+                                    )}
+                                </div>
+                            })}
+                        </div>
+                    )}
                 </div>
             )}
 
-            {/* No Results Found */}
-            {!selectedCategory &&
-                searchQuery &&
-                filteredCategories.length === 0 && (
-                    <p className="text-gray-500 text-center">No categories found.</p>
-                )}
-            {selectedCategory &&
-                searchQuery &&
-                filteredSubCategories.length === 0 && (
-                    <p className="text-gray-500 text-center">No subcategories found.</p>
-                )}
+            {/* Display Subcategories when a category is selected */}
+            {selectedCategory && (
+                <div className="space-y-4">
+                    <button
+                        onClick={() => setSelectedCategory(null)}
+                        className="text-xs font-bold text-blue-600"
+                    >
+                        Back to Categories
+                    </button>
+
+                    {/* Sorted Filtered Subcategories for the selected category */}
+                    <div className="space-y-6">
+                        {sortedFilteredSubCategories.length > 0 ? (
+                            sortedFilteredSubCategories.map((subCategory) => {
+                                let downloadURL = urlLinks.find((item) => {
+                                    return item.title === subCategory.title
+
+                                })
+                                return <div
+                                    key={subCategory.id}
+                                    className="p-4 rounded-lg shadow bg-gray-50"
+                                >
+                                    <h4 className="text-sm font-semibold">
+                                        {subCategory.title}
+                                    </h4>
+                                    {downloadURL && downloadURL.downloadUrl ? (
+                                        <div>
+                                            <video controls className="w-full">
+                                                <source src={downloadURL.downloadUrl} type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    ) : (
+                                        <p className="text-xs">No video available</p>
+                                    )}
+                                </div>
+                            })
+                        ) : (
+                            <p>No matching subcategories found</p>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
-
 const TabMenu = ({
     activeTab,
     setActiveTab,
@@ -648,7 +726,7 @@ const Detect = () => {
     const requestRef = useRef();
 
     const [detectedData, setDetectedData] = useState([]);
-
+    const [urlLinks, setURLinks] = useState([]);
 
     const [resultList, setResultList] = useState([]);
 
@@ -858,7 +936,15 @@ const Detect = () => {
             });
             setGestureRecognizer(recognizer);
         }
+
+        getTitlesAndUrls()
+            .then((data) => {
+                setURLinks(data)
+            })
+
         loadGestureRecognizer();
+
+        getTitlesAndUrls();
     }, [runningMode]);
 
 
@@ -866,7 +952,7 @@ const Detect = () => {
     console.log({ facingMode })
 
     return (
-        accessToken ? <>
+        gestureRecognizer && urlLinks.length > 0 ? <>
 
             <div className="flex flex-col h-screen ">
                 {/* Navbar */}
@@ -938,7 +1024,8 @@ const Detect = () => {
                     )}
 
                     {/* Practice and History Tabs */}
-                    {activeTab === "practice" && <CategoryComponent />}
+                    {activeTab === "practice" && <CategoryComponent
+                        urlLinks={urlLinks} />}
                     {activeTab === "history" && <p className="text-white">History Data</p>}
                 </div>
 
@@ -958,7 +1045,13 @@ const Detect = () => {
             </div>
 
 
-        </> : <div></div>
+        </> : <div className="flex flex-col justify-center items-center min-h-screen space-y-4 text-center">
+            <div className="border-t-4 border-blue-500 border-solid w-16 h-16 rounded-full animate-spin"></div>
+            <p className="text-lg font-semibold text-gray-700">Please hold on while we load the application.</p>
+        </div>
+
+
+
     );
 };
 
