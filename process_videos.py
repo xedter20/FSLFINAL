@@ -61,8 +61,8 @@ def process_videos_in_folders_per_folder(root_folder, output_folder, max_videos_
 max_videos_per_folder = 1  # Change as needed
 
 # Define input and output folders
-root_folder = r'C:\DexDev\my_Small_projects\FSL\FINAL_WORKING\src\assests\FSL\survival_FSL'
-output_folder = r'C:\DexDev\my_Small_projects\FSL\FINAL_WORKING\src\assests\FSL\survival_FSL\output_images'
+root_folder = r'C:\DexDev\my_Small_projects\FSL\FINAL_WORKING\src\assests\FSL\number_FSL'
+output_folder = r'C:\DexDev\my_Small_projects\FSL\FINAL_WORKING\src\assests\FSL\number_FSL\output_images'
 os.makedirs(output_folder, exist_ok=True)
 
 # Process videos with a per-folder limit

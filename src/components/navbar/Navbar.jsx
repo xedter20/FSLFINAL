@@ -53,7 +53,7 @@ const Navbar = ({ notifyMsg }) => {
           </div>
 
           {/* Menu Button for Mobile */}
-          <div className="flex items-center sm:hidden">
+          {/* <div className="flex items-center sm:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
@@ -74,7 +74,7 @@ const Navbar = ({ notifyMsg }) => {
                 />
               </svg>
             </button>
-          </div>
+          </div> */}
 
           {/* Links */}
           {/* <div className="hidden sm:flex sm:items-center space-x-4">

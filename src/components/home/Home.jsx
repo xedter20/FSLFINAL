@@ -17,13 +17,17 @@ import { addSignData } from "../../redux/actions/signdataaction";
 import ProgressBar from "./../Detect/ProgressBar/ProgressBar";
 
 // import DisplayImg from "../../assests/displayGif.gif";
-import { FaCamera, FaImage, FaHistory, FaInfoCircle, FaChevronUp, FaChevronDown, FaPause, FaPlay } from "react-icons/fa";
+import { FaCamera, FaImage, FaHistory, FaInfoCircle, FaChevronUp, FaChevronDown, FaPause, FaPlay, FaSyncAlt, FaPauseCircle } from "react-icons/fa";
 
 import ReactPlayer from 'react-player';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faPalette, faCalendarDay, faCocktail, faUsers, faUtensils, faHandshake, faHashtag, faHeart, faVideo, faSurvivalKit } from '@fortawesome/free-solid-svg-icons'; // If using react-player for video
+import {
+    faPlayCircle,
+    faPauseCircle,
+    faCalendar, faPalette, faCalendarDay, faCocktail, faUsers, faUtensils, faHandshake, faHashtag, faHeart, faVideo, faSurvivalKit
+} from '@fortawesome/free-solid-svg-icons'; // If using react-player for video
 let startTime = "";
 
 const categories = [
@@ -422,6 +426,15 @@ const subCategories = {
 }
 
 const CategoryComponent = () => {
+
+    const [facingMode, setFacingMode] = useState("user"); // Start with the front-facing camera
+    const webcamRef = useRef(null);
+
+    const toggleCamera = () => {
+        setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
+    };
+
+
     const [searchQuery, setSearchQuery] = useState("");
 
     const [searchQuerySub, setSearchQuerySub] = useState("");
@@ -616,13 +629,21 @@ const TabMenu = ({
 
 
 const Detect = () => {
-    const webcamRef = useRef(null);
+
     const canvasRef = useRef(null);
     const [webcamRunning, setWebcamRunning] = useState(false);
     const [gestureOutput, setGestureOutput] = useState("");
     const [gestureRecognizer, setGestureRecognizer] = useState(null);
     const [runningMode, setRunningMode] = useState("IMAGE");
     const [progress, setProgress] = useState(0);
+
+
+    const [facingMode, setFacingMode] = useState("user"); // Start with the front-facing camera
+    const webcamRef = useRef(null);
+
+    const toggleCamera = () => {
+        setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
+    };
 
     const requestRef = useRef();
 
@@ -842,6 +863,8 @@ const Detect = () => {
 
 
 
+    console.log({ facingMode })
+
     return (
         accessToken ? <>
 
@@ -860,11 +883,8 @@ const Detect = () => {
                             <Webcam
                                 audio={false}
                                 ref={webcamRef}
-                                videoConstraints={{
-                                    facingMode: "user", // front-facing camera
-                                }}
+                                videoConstraints={{ facingMode }}
                                 className="w-full h-full object-cover"
-                            // className="signlang_webcam w-full h-full object-cover"
                             />
                             <canvas
                                 ref={canvasRef}
@@ -892,11 +912,18 @@ const Detect = () => {
                             </div>
                             }
 
-
                             <button
+                                className="border-2 border-gray-400 text-white rounded-full font-bold w-14 h-14 absolute 
+        top-1/2 right-5 transform -translate-y-1/2 bg-gray-700 hover:bg-gray-500 flex items-center justify-center shadow-lg"
+                                onClick={toggleCamera}
+                            >
+                                <FaSyncAlt className="text-lg" /> {/* Switch icon */}
+                            </button>
 
-                                className="border-2 border-gray-400 text-white rounded-full font-bold w-20 h-20 absolute 
-                                left-1/2 top-[85%] transform -translate-x-1/2 -translate-y-1/2 bg-transparent hover:bg-gray-400 flex items-center justify-center"
+                            {/* Play/Pause Button */}
+                            <button
+                                className="border-2 border-gray-400 text-white rounded-full font-bold w-14 h-14 absolute 
+        top-[60%] right-5 transform -translate-y-1/2  bg-gray-700 hover:bg-gray-500 flex items-center justify-center shadow-lg"
                                 onClick={enableCam}
                             >
                                 {webcamRunning ? (
@@ -905,6 +932,7 @@ const Detect = () => {
                                     <FaPlay className="text-xl" /> // Play icon
                                 )}
                             </button>
+
 
                         </div>
                     )}
